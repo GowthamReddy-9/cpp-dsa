@@ -1,2 +1,6 @@
 # cpp-dsa
-A structured repository to master Data Structures and Algorithms using C++. Covers core concepts like arrays, linked lists, trees, graphs, recursion, DP, STL, and more — ideal for interviews, coding practice, and foundational learning.
+
+This repository is the starting point of my journey to master Data Structures and Algorithms using C++.  
+Daily updates will include notes, code examples, and problem-solving practice.
+
+🚧 Currently setting up structure — code will be added soon.
