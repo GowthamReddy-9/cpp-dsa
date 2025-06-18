@@ -30,10 +30,4 @@
 
 ---
 
-## 🧭 What's Next?
-
-You’ve built a solid foundation. This folder marks the end of pure basics.  
-Next stop: Starting Data Structures and Algorithms (DSA) with full focus 💪
-
-🧠 Tip: Revisit these pointer files as reference when working with linked lists and trees in DSA.
 
