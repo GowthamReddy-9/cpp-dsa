@@ -176,6 +176,6 @@ int main(){
 	PrintFromStart(head);
 	insertAtPos(head,9,5);
 	PrintFromStart(head);
-	DeleteAtPos(head,0);
+	DeleteAtPos(head,5);
 	PrintFromStart(head);
 }
