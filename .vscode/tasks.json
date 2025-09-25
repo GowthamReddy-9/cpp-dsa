@@ -1,0 +1,74 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile C++",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-O2",
+                "-o",
+                "${fileBasenameNoExtension}.exe",
+                "${fileBasename}"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${fileDirname}",
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": ["-Command"]
+                }
+            }
+        },
+        {
+            "label": "Run with IO",
+            "type": "shell",
+            "command": "$rootPath = Split-Path -Parent $PWD; $inputFile = Join-Path $rootPath 'input.txt'; $outputFile = Join-Path $rootPath 'output.txt'; if (Test-Path $inputFile) { Get-Content $inputFile | .\\${fileBasenameNoExtension}.exe | Out-File -FilePath $outputFile -Encoding utf8; Write-Host \"Output written to: $outputFile\" } else { Write-Host \"input.txt not found at: $inputFile\" }",
+            "dependsOn": "Compile C++",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${fileDirname}",
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": ["-Command"]
+                }
+            }
+        },
+        {
+            "label": "Run without IO (normal)",
+            "type": "shell",
+            "command": ".\\${fileBasenameNoExtension}.exe",
+            "dependsOn": "Compile C++",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${fileDirname}",
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": ["-Command"]
+                }
+            }
+        }
+    ]
+}

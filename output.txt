@@ -1,0 +1,1 @@
+﻿Jobs done = 3, Profit = 142
