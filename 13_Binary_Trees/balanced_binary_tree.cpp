@@ -36,38 +36,33 @@ public:
 class IterativeSolution {
 public:
     bool isBalanced(TreeNode* root) {
-        if (!root) return true;
+    if (!root) return true;
 
-        
-        stack<tuple<TreeNode*, bool, int>> st;
-        st.push({root, false, 0});
+    unordered_map<TreeNode*, int> height; // store computed heights
+    stack<pair<TreeNode*, bool>> st;
+    st.push({root, false});
 
-        unordered_map<TreeNode*, int> height; 
+    while (!st.empty()) {
+        auto [node, visited] = st.top();
+        st.pop();
 
-        while (!st.empty()) {
-            auto [node, visited, h] = st.top();
-            st.pop();
+        if (!node) continue;
 
-            if (!node) continue;
+        if (visited) {
+            int lh = height[node->left];
+            int rh = height[node->right];
 
-            if (!visited) {
-            
-                st.push({node, true, 0});
-                
-                st.push({node->right, false, 0});
-                st.push({node->left, false, 0});
-            } else {
-                int left  = node->left  ? height[node->left]  : 0;
-                int right = node->right ? height[node->right] : 0;
-
-                if (abs(left - right) > 1) return false;
-
-                height[node] = 1 + max(left, right);
-            }
+            if (abs(lh - rh) > 1) return false;
+            height[node] = max(lh, rh) + 1;
+        } else {
+            // postorder: left → right → node
+            st.push({node, true});
+            st.push({node->right, false});
+            st.push({node->left, false});
         }
-
-        return true;
     }
+    return true;
+}
 };
 
 
