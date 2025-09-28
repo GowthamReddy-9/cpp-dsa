@@ -2,7 +2,6 @@
 //https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
 #include <bits/stdc++.h>
 using namespace std;
-
 /**
  * Definition for a binary tree node.
  */
@@ -14,7 +13,6 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
-
 class Solution {
     // ---------- Recursive Version ----------
     int dfs(TreeNode* node, int &maxSum) {
@@ -31,7 +29,6 @@ public:
         dfs(root, maxSum);
         return maxSum;
     }
-
     // ---------- Iterative Version ----------
     int maxPathSumIterative(TreeNode* root) {
         if (!root) return 0;
