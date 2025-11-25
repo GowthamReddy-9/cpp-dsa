@@ -1,2 +1,1 @@
-﻿Using 2 Stacks: 7 4 8 9 5 2 11 10 6 3 1 
-Using 1 stack: 7 4 8 9 5 2 11 10 6 3 1 
+﻿Max Subarray Length: 6
