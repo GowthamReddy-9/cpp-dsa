@@ -1,1 +1,1 @@
-﻿Max Subarray Length: 6
+﻿Order: 0 1 2 3 
