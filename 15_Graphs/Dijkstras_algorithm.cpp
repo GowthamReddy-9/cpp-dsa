@@ -1,22 +1,12 @@
-// Problem : Dijkstra (Shortest Path in Weighted Graph)
+// Problem : Dijkstra (Two Implementations: priority_queue + set)
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// --------------------------------------------
-// Approach:
-// 1. Use a min-heap (priority_queue with greater<>) to always pick the
-//    node with the smallest current distance.
-// 2. distances[] initialized to INT_MAX, except dist[src] = 0.
-// 3. Pop the best (dist, node) from heap.
-//    If it's outdated (d > dist[node]) → skip.
-// 4. Relax edges:
-//      if dist[nbr] > dist[node] + weight:
-//          update and push back into heap.
-// 5. Continue until heap becomes empty.
-// --------------------------------------------
-
-vector<int> dijkstra(int n, vector<vector<pair<int,int>>> &adj, int src) {
+// ------------------------------------------------------------
+// Method 1: Dijkstra using priority_queue (Min-Heap)
+// ------------------------------------------------------------
+vector<int> dijkstra_pq(int n, vector<vector<pair<int,int>>> &adj, int src) {
     vector<int> dist(n, INT_MAX);
     priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
 
@@ -39,13 +29,47 @@ vector<int> dijkstra(int n, vector<vector<pair<int,int>>> &adj, int src) {
             }
         }
     }
+    return dist;
+}
+
+// ------------------------------------------------------------
+// Method 2: Dijkstra using set (acts like decrease-key)
+// ------------------------------------------------------------
+vector<int> dijkstra_set(int n, vector<vector<pair<int,int>>> &adj, int src) {
+    vector<int> dist(n, INT_MAX);
+    set<pair<int,int>> st; // {dist, node}
+
+    dist[src] = 0;
+    st.insert({0, src});
+
+    while (!st.empty()) {
+        auto it = *st.begin();
+        st.erase(st.begin());
+
+        int d = it.first;
+        int node = it.second;
+
+        for (auto &p : adj[node]) {
+            int nbr = p.first;
+            int wt  = p.second;
+
+            if (dist[nbr] > d + wt) {
+                // erase old entry if exists
+                if (dist[nbr] != INT_MAX)
+                    st.erase({dist[nbr], nbr});
+
+                dist[nbr] = d + wt;
+                st.insert({dist[nbr], nbr});
+            }
+        }
+    }
 
     return dist;
 }
 
-// --------------------------------------------
-// Test case
-// --------------------------------------------
+// ------------------------------------------------------------
+// Test Both Methods
+// ------------------------------------------------------------
 int main() {
     int n = 5;
     vector<vector<pair<int,int>>> adj(n);
@@ -56,11 +80,15 @@ int main() {
     adj[3] = {{4,1}};
     adj[4] = {};
 
-    vector<int> dist = dijkstra(n, adj, 0);
+    cout << "Priority Queue Dijkstra: ";
+    vector<int> dist1 = dijkstra_pq(n, adj, 0);
+    for (int d : dist1) cout << d << " ";
+    cout << "\n";
 
-    cout << "Distances: ";
-    for (int d : dist) cout << d << " ";
-    cout << endl;
+    cout << "Set-Based Dijkstra:      ";
+    vector<int> dist2 = dijkstra_set(n, adj, 0);
+    for (int d : dist2) cout << d << " ";
+    cout << "\n";
 
     return 0;
 }
